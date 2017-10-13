@@ -99,7 +99,7 @@ module Tolk
     end
 
     def phrases_without_translation(page = nil)
-      phrases = Tolk::Phrase.all.order('tolk_phrases.key ASC')
+      phrases = Tolk::Phrase.all.order('tolk_phrases.created_at DESC')
 
       existing_ids = self.translations(:select => 'tolk_translations.phrase_id').map(&:phrase_id).uniq
       phrases = phrases.where('tolk_phrases.id NOT IN (?)', existing_ids) if existing_ids.present?
